@@ -1,0 +1,70 @@
+<view class="container">
+  <loading hidden="{{loadingHide}}">
+    {{loadingText}}
+  </loading>
+
+  <view class="title">餐饮店详情</view>
+  <view class="printShop_detail_view"> 
+      <view class="viewItem">
+        <view class="label">餐饮店账号：</view>
+        <view class="content">
+          <view>{{shopUserName}}</view>
+        </view>
+      </view>
+ 
+
+       <view class="viewItem">
+        <view class="label">餐饮店名称：</view>
+        <view class="content"> 
+          <view>{{shopName}}</view>
+        </view>
+      </view>
+
+       <view class="viewItem">
+        <view class="label">餐饮店照片：</view>
+        <view class="content"> 
+          <image mode="aspectFill" src="{{shopPhotoUrl}}"></image>
+        </view>
+      </view>
+
+       <view class="viewItem">
+        <view class="label">餐饮店介绍：</view>
+        <view class="content"> 
+          <view>{{shopDesc}}</view>
+        </view>
+      </view>
+
+       <view class="viewItem">
+        <view class="label">成立日期：</view>
+        <view class="content"> 
+          <view>{{bornDate}}</view>
+        </view>
+      </view>
+
+       <view class="viewItem">
+        <view class="label">联系人：</view>
+        <view class="content"> 
+          <view>{{connectPerson}}</view>
+        </view>
+      </view>
+
+       <view class="viewItem">
+        <view class="label">联系电话：</view>
+        <view class="content"> 
+          <view>{{telephone}}</view>
+        </view>
+      </view>
+
+       <view class="viewItem">
+        <view class="label">餐饮店地址：</view>
+        <view class="content"> 
+          <view>{{address}}</view>
+        </view>
+      </view>
+
+      <view>
+        <navigator class="btnReturn" open-type="navigateBack" hover-class="navigator-hover">返回</navigator>
+      </view>
+
+  </view>
+</view>

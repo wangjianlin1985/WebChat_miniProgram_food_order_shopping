@@ -1,0 +1,76 @@
+<view class="container">
+  <view class="toggleQview" bindtap="toggleQueryViewHide" style="padding:5px;">显示或隐藏查询视图</view>
+  <view class="queryView" hidden="{{queryViewHidden}}">
+    <view class="queryParams">
+      <view class="queryItem">
+        <view class="label">餐饮店账号：</view>
+        <view class="searchControl"><input data-id="shopUserName" placeholder="请输入餐饮店账号关键字" value="{{shopUserName}}" bindinput="searchValueInput" /></view>
+      </view>
+
+      <view class="queryItem">
+        <view class="label">餐饮店名称：</view>
+        <view class="searchControl"><input data-id="shopName" placeholder="请输入餐饮店名称关键字" value="{{shopName}}" bindinput="searchValueInput" /></view>
+      </view>
+
+      <view class="queryItem">
+        <view class="label">成立日期：</view>
+         <view class="searchControl">
+          <picker mode="date" value="{{bornDate}}" start="1970-01-01" end="2030-01-01" bindchange="bind_bornDate_change" >
+            <view>
+              <input style="width:75%;display:inline-block;float:left;" placeholder="选择成立日期" value="{{bornDate}}"></input>
+              <text class="clearButton" catchtap="clear_bornDate">x</text>
+            </view>
+          </picker> 
+        </view>
+      </view>
+
+      <view class="queryItem">
+        <view class="label">联系人：</view>
+        <view class="searchControl"><input data-id="connectPerson" placeholder="请输入联系人关键字" value="{{connectPerson}}" bindinput="searchValueInput" /></view>
+      </view>
+
+      <view class="queryItem">
+        <view class="label">联系电话：</view>
+        <view class="searchControl"><input data-id="telephone" placeholder="请输入联系电话关键字" value="{{telephone}}" bindinput="searchValueInput" /></view>
+      </view>
+
+    </view>
+
+    <view class="queryButton">
+       <button class="font_12 fl_r op-btn mr_10" bindtap="queryPrintShop">查询</button>
+    </view>
+  </view>
+
+  <view class="printShopList">
+  <block wx:for-items="{{printShops}}" wx:key="{{index}}">
+    <view class="printShopItem">
+        <view class="printShopImg">
+          <image src="{{item.shopPhotoUrl}}"></image>
+        </view>
+        <navigator url="printShop_detail?shopUserName={{item.shopUserName}}" hover-class="navigator-hover">
+        <view class="printShopText">
+          <view>餐饮店账号：{{item.shopUserName}}</view>
+          <view>餐饮店名称：{{item.shopName}}</view>
+          <view>成立日期：{{item.bornDate}}</view>
+          <view>联系人：{{item.connectPerson}}</view>
+        </view>
+        </navigator>
+    </view>
+    <view class="opt_view" style="display:none;">
+      <button class="font_12 fl_r del-btn mr_10" bindtap="removePrintShop" data-shopusername="{{item.shopUserName}}">删除</button> 
+      <navigator url="printShop_modify?shopUserName={{item.shopUserName}}" hover-class="navigator-hover">
+        <button class="font_12 fl_r op-btn mr_10">编辑</button>
+      </navigator>
+    </view>
+  </block>
+  </view>
+
+  <view hidden="{{loading_hide}}" class="loading">
+    <view class="loadingImg"><image src="/images/loading.gif" mode="aspectFill"></image></view>
+    <view class="loadingTxt">..加载中..</view>
+  </view>
+  <view class="nodata_view" hidden="{{nodata_hide}}">
+    <image src="/images/Noline.png" mode="widthFix"></image>
+  </view>
+</view>
+

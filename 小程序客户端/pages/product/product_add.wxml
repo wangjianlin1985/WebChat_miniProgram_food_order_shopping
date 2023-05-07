@@ -1,0 +1,83 @@
+<view class="container">
+  <loading hidden="{{loadingHide}}">
+    {{loadingText}}
+  </loading>
+  <view class="title">添加菜品信息</view>
+
+  <view class="product_add_view">
+    <form bindsubmit="formSubmit">
+      <view class="formItem">
+        <view class="label">菜品类别：</view>
+        <view class="formControl">
+          <picker bindchange="bind_productClassObj_change" value="{{productClassObj_Index}}" range-key="className" range="{{productClasss}}">
+            <view style="display:flex;border:1px solid green;">
+              <input hidden="true" name="product.productClassObj.classId" value="{{productClasss[productClassObj_Index].classId}}" />
+              <input style="width:90%;border:0px;" value="{{productClasss[productClassObj_Index].className}}"></input>
+              <image class="arrow-r" src="/images/arrow-r-0.png"></image>
+            </view>
+          </picker> 
+        </view>
+      </view>
+
+      <view class="formItem">
+        <view class="label">菜品名称：</view>
+        <view class="formControl">
+          <input type="text" name="product.productName" placeholder="请输入菜品名称" value="{{productName}}" />
+        </view>
+      </view>
+
+       <view class="formItem">
+        <view class="label">菜品图片：</view>
+        <view class="formControl" bindtap="select_mainPhoto">
+          <input type="text" hidden="true" name="product.mainPhoto" value="{{mainPhoto}}" />
+          <image wx:for="{{mainPhotoList}}" class="uploadPic" mode="aspectFill" src="{{item}}" wx:key=""></image>
+          <image src="../../images/upic.png" class="uploadPic" mode="widthFix"></image>
+        </view>
+      </view>
+
+      <view class="formItem">
+        <view class="label">套餐价格：</view>
+        <view class="formControl">
+          <input type="text" name="product.price" placeholder="请输入套餐价格" value="{{price}}" />
+        </view>
+      </view>
+
+      <view class="formItem" style="align-items:flex-start;">
+        <view class="label">菜品描述：</view>
+        <view class="formControl">
+           <textarea placeholder="请输入菜品描述" maxlength="800" name="product.productDesc" value="{{productDesc}}" />
+        </view>
+      </view>
+
+      <view class="formItem">
+        <view class="label">餐饮店：</view>
+        <view class="formControl">
+          <picker bindchange="bind_printShopObj_change" value="{{printShopObj_Index}}" range-key="shopName" range="{{printShops}}">
+            <view style="display:flex;border:1px solid green;">
+              <input hidden="true" name="product.printShopObj.shopUserName" value="{{printShops[printShopObj_Index].shopUserName}}" />
+              <input style="width:90%;border:0px;" value="{{printShops[printShopObj_Index].shopName}}"></input>
+              <image class="arrow-r" src="/images/arrow-r-0.png"></image>
+            </view>
+          </picker> 
+        </view>
+      </view>
+
+       <view class="formItem">
+        <view class="label">发布时间：</view>
+        <view class="formControl">
+          <picker mode="date"  start="1970-01-01" end="2030-01-01" value="{{addTime}}" bindchange="bind_addTime_change" >
+            <view style="display:flex;border:1px solid green;">
+              <input style="width:90%;border:0px;" name="product.addTime" placeholder="选择发布时间"  value="{{addTime}}"></input>
+              <text class="clearButton" catchtap="clear_addTime">x</text>
+            </view>
+          </picker>
+        </view>
+      </view>
+
+      <view>
+        <button class="vBtn_ok" formType="submit" disabled="{{disabled}}">提交发布</button>
+      </view>
+
+    </form>
+  </view>
+</view>

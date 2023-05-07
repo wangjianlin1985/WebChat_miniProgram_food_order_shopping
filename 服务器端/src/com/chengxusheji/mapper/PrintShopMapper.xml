@@ -1,0 +1,48 @@
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace命名空间，为了对sql语句进行隔离，方便管理，mapper开发dao方式，使用namespace有特殊作用  
+mapper代理开发时将namespace指定为mapper接口的全限定名  
+ -->
+<mapper namespace="com.chengxusheji.mapper.PrintShopMapper"> 
+<!--在mapper.xml文件中配置很多的sql语句，执行每个sql语句时，封装为MappedStatement对象 
+mapper.xml以statement为单位管理sql语句  
+ -->
+	<!-- 添加餐饮店记录 -->
+	<insert id="addPrintShop" parameterType="printShop">
+		insert into t_printShop(shopUserName,password,shopName,shopPhoto,shopDesc,bornDate,connectPerson,telephone,address) values 
+		(#{shopUserName},#{password},#{shopName},#{shopPhoto},#{shopDesc},#{bornDate},#{connectPerson},#{telephone},#{address})
+	</insert>
+
+	<!-- 按照查询条件分页查询餐饮店记录 -->
+	<select id="queryPrintShop" resultMap="printShopMap" >
+		select t_printShop.* from t_printShop ${where} limit #{startIndex},#{pageSize}
+	</select>
+	<resultMap id="printShopMap" type="printShop">
+        <id property="shopUserName" column="shopUserName" />
+    </resultMap>
+
+    <!-- 按照查询条件查询所有餐饮店记录 -->
+	<select id="queryPrintShopList" resultMap="printShopMap" >
+		select t_printShop.* from t_printShop ${where}
+	</select>
+
+    <!-- 按照查询条件的餐饮店记录数 -->
+	<select id="queryPrintShopCount" resultType="int">
+		select count(*) from t_printShop ${where}
+	</select>
+
+	<!-- 根据主键查询某个餐饮店记录 -->
+	<select id="getPrintShop" parameterType="string" resultMap="printShopMap">
+		select * from t_printShop where t_printShop.shopUserName = #{shopUserName}
+	</select>
+
+	<!-- 更新餐饮店记录 -->
+	<update id="updatePrintShop" parameterType="printShop">
+		update t_printShop set password=#{password},shopName=#{shopName},shopPhoto=#{shopPhoto},shopDesc=#{shopDesc},bornDate=#{bornDate},connectPerson=#{connectPerson},telephone=#{telephone},address=#{address} where shopUserName = #{shopUserName}
+	</update>
+
+	<!-- 删除餐饮店记录 -->
+	<delete id="deletePrintShop" parameterType="string">
+		delete from t_printShop where shopUserName=#{shopUserName}
+	</delete>
+
+</mapper>

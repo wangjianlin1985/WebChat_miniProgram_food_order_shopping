@@ -1,0 +1,56 @@
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace命名空间，为了对sql语句进行隔离，方便管理，mapper开发dao方式，使用namespace有特殊作用  
+mapper代理开发时将namespace指定为mapper接口的全限定名  
+ -->
+<mapper namespace="com.chengxusheji.mapper.ProductMapper"> 
+<!--在mapper.xml文件中配置很多的sql语句，执行每个sql语句时，封装为MappedStatement对象 
+mapper.xml以statement为单位管理sql语句  
+ -->
+	<!-- 添加菜品信息记录 -->
+	<insert id="addProduct" parameterType="product">
+		insert into t_product(productClassObj,productName,mainPhoto,price,productDesc,printShopObj,addTime) values 
+		(#{productClassObj.classId},#{productName},#{mainPhoto},#{price},#{productDesc},#{printShopObj.shopUserName},#{addTime})
+	</insert>
+
+	<!-- 按照查询条件分页查询菜品信息记录 -->
+	<select id="queryProduct" resultMap="productMap" >
+		select t_product.* from t_product,t_printShop,t_productClass ${where} and t_product.productClassObj = t_productClass.classId and t_product.printShopObj = t_printShop.shopUserName limit #{startIndex},#{pageSize}
+	</select>
+	<resultMap id="productMap" type="product">
+        <id property="productId" column="productId" />
+        <association property="productClassObj" column="productClassObj" select="com.chengxusheji.mapper.ProductClassMapper.getProductClass" />
+        <association property="printShopObj" column="printShopObj" select="com.chengxusheji.mapper.PrintShopMapper.getPrintShop" />
+    </resultMap>
+
+    <!-- 按照查询条件查询所有菜品信息记录 -->
+	<select id="queryProductList" resultMap="productMap" >
+		select t_product.* from t_product,t_printShop,t_productClass ${where} and t_product.productClassObj = t_productClass.classId and t_product.printShopObj = t_printShop.shopUserName
+	</select>
+	
+	<!-- 查询最新菜品信息记录 -->
+	<select id="queryLatestProductList" resultMap="productMap" >
+		select t_product.* from t_product,t_printShop,t_productClass where t_product.productClassObj = t_productClass.classId and t_product.printShopObj = t_printShop.shopUserName order by t_product.addTime DESC limit 0,8
+	</select>
+	
+
+    <!-- 按照查询条件的菜品信息记录数 -->
+	<select id="queryProductCount" resultType="int">
+		select count(*) from t_product,t_printShop,t_productClass ${where} and t_product.productClassObj = t_productClass.classId and t_product.printShopObj = t_printShop.shopUserName
+	</select>
+
+	<!-- 根据主键查询某个菜品信息记录 -->
+	<select id="getProduct" parameterType="int" resultMap="productMap">
+		select * from t_product where t_product.productId = #{productId}
+	</select>
+
+	<!-- 更新菜品信息记录 -->
+	<update id="updateProduct" parameterType="product">
+		update t_product set productClassObj=#{productClassObj.classId},productName=#{productName},mainPhoto=#{mainPhoto},price=#{price},productDesc=#{productDesc},printShopObj=#{printShopObj.shopUserName},addTime=#{addTime} where productId = #{productId}
+	</update>
+
+	<!-- 删除菜品信息记录 -->
+	<delete id="deleteProduct" parameterType="int">
+		delete from t_product where productId=#{productId}
+	</delete>
+
+</mapper>

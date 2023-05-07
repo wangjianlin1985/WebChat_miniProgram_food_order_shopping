@@ -1,0 +1,71 @@
+<view class="container">
+  <loading hidden="{{loadingHide}}">
+    {{loadingText}}
+  </loading>
+
+  <view class="title">菜品信息详情</view>
+  <view class="product_detail_view"> 
+      <view class="viewItem">
+        <view class="label">商品id：</view>
+        <view class="content">
+          <view>{{productId}}</view>
+        </view>
+      </view>
+
+       <view class="viewItem">
+        <view class="label">菜品类别：</view>
+        <view class="content"> 
+          <view>{{productClassObj}}</view>
+        </view>
+      </view>
+
+       <view class="viewItem">
+        <view class="label">菜品名称：</view>
+        <view class="content"> 
+          <view>{{productName}}</view>
+        </view>
+      </view>
+
+       <view class="viewItem">
+        <view class="label">菜品图片：</view>
+        <view class="content"> 
+          <image mode="aspectFill" src="{{mainPhotoUrl}}"></image>
+        </view>
+      </view>
+
+       <view class="viewItem">
+        <view class="label">套餐价格：</view>
+        <view class="content"> 
+          <view>{{price}}</view>
+        </view>
+      </view>
+
+       <view class="viewItem">
+        <view class="label">菜品描述：</view>
+        <view class="content"> 
+          <view>{{productDesc}}</view>
+        </view>
+      </view>
+
+       <view class="viewItem">
+        <view class="label">餐饮店：</view>
+        <view class="content"> 
+          <view>{{printShopObj}}</view>
+        </view>
+      </view>
+
+       <view class="viewItem">
+        <view class="label">发布时间：</view>
+        <view class="content"> 
+          <view>{{addTime}}</view>
+        </view>
+      </view>
+
+      <view>
+        <button class="vBtn_ok" catchtap="addOrder" disabled="{{disabled}}">我要下单</button>
+      </view>
+
+      
+
+  </view>
+</view>
